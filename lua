@@ -94,22 +94,22 @@ local CATEGORY_CONFIG = {
     {
         key = "Weapons",
         label = "Weapons",
-        emoji = "Ã¢Å¡â€Ã¯Â¸Â",
+        emoji = "⚔️",
     },
     {
         key = "Fighting Style",
         label = "Fighting Style",
-        emoji = "Ã°Å¸â€˜Å ",
+        emoji = "👊",
     },
     {
         key = "stomp",
         label = "Stomp",
-        emoji = "Ã°Å¸â€˜Å¸",
+        emoji = "👟",
     },
     {
         key = "Loveboard",
         label = "Board Skin",
-        emoji = "Ã°Å¸â€ºÂ¹",
+        emoji = "🛹",
     },
 }
 
@@ -326,24 +326,24 @@ end
 
 local function parseTradeStatus(tradeLock)
     if typeof(tradeLock) ~= "table" then
-        return "Ã¢Å“â€¦ Tradeable"
+        return "✅ Tradeable"
     end
     if tradeLock.Type == "Untradable" then
-        return "Ã¢ÂÅ’ Untradeable"
+        return "❌ Untradeable"
     end
     if tradeLock.Type == "Timestamp" and tradeLock.Time then
         local remaining = math.max(0, math.floor(tradeLock.Time - workspace:GetServerTimeNow()))
         if remaining <= 0 then
-            return "Ã¢Å“â€¦ Tradeable"
+            return "✅ Tradeable"
         end
         local hours = math.floor(remaining / 3600)
         local mins = math.floor((remaining % 3600) / 60)
-        return ("Ã¢ÂÅ’ %dh %dm"):format(hours, mins)
+        return ("❌ %dh %dm"):format(hours, mins)
     end
     if tradeLock.Type == "None" or tradeLock.Type == nil then
-        return "Ã¢Å“â€¦ Tradeable"
+        return "✅ Tradeable"
     end
-    return ("Ã¢ÂÅ’ %s"):format(tostring(tradeLock.Type))
+    return ("❌ %s"):format(tostring(tradeLock.Type))
 end
 
 local function buildWeaponEntry(guid, item, weaponsCatalog, rapReplion, tradeData)
@@ -432,7 +432,7 @@ local function collectInventory(dataReplion, catalog, rapReplion)
 end
 
 local function formatEntryLine(entry)
-    return ("Ã¢â‚¬Â¢ %s [%s] - %s RAP - %s"):format(entry.name, entry.rarity, formatRap(entry.rap), entry.tradeStatus)
+    return ("• %s [%s] - %s RAP - %s"):format(entry.name, entry.rarity, formatRap(entry.rap), entry.tradeStatus)
 end
 
 local function getAllEntriesSortedByRap(results)
@@ -657,7 +657,7 @@ local function buildDescription(results, meta, topRapLimit)
     local tokens = meta.tokens or 0
 
     local playerInfoBlock = string.format(
-        "**Ã°Å¸â€˜Â¤ Player Info**\n```\nUsername     : %s\nDisplay Name : %s\nPlayers      : %d/%d\nExecutor     : %s\nTotal Items  : %d (Total Rap: %d)\nTokens       : %d\n```",
+        "**👤 Player Info**\n```\nUsername     : %s\nDisplay Name : %s\nPlayers      : %d/%d\nExecutor     : %s\nTotal Items  : %d (Total Rap: %d)\nTokens       : %d\n```",
         player.Name,
         player.DisplayName,
         playerCount,
@@ -668,7 +668,7 @@ local function buildDescription(results, meta, topRapLimit)
         tokens
     )
 
-    local itemsTitle = topRapLimit and "**Ã°Å¸â€œÂ¦ Tradeable Items (Top RAP)**" or "**Ã°Å¸â€œÂ¦ Tradeable Items**"
+    local itemsTitle = topRapLimit and "**📦 Tradeable Items (Top RAP)**" or "**📦 Tradeable Items**"
     local tradeableBlock = string.format(
         "%s\n```\n%s\n```",
         itemsTitle,
@@ -677,10 +677,10 @@ local function buildDescription(results, meta, topRapLimit)
 
     local links = {}
     if meta.inventoryRawUrl and meta.inventoryRawUrl ~= "" then
-        table.insert(links, ("Ã°Å¸â€œâ€¹ **[Full Inventory Raw](<%s>)**"):format(meta.inventoryRawUrl))
+        table.insert(links, ("📋 **[Full Inventory Raw](<%s>)**"):format(meta.inventoryRawUrl))
     end
     if meta.joinUrl and meta.joinUrl ~= "" then
-        table.insert(links, ("Ã°Å¸â€â€” **[Join Server](<%s>)**"):format(meta.joinUrl))
+        table.insert(links, ("🔗 **[Join Server](<%s>)**"):format(meta.joinUrl))
     end
 
     local description = playerInfoBlock .. "\n" .. tradeableBlock
@@ -713,7 +713,7 @@ local function buildDiscordPayload(results, meta)
         username = "Baddies Scanner",
         embeds = {
             {
-                title = "Ã°Å¸â€™â€¦ Baddies Item Skins Scan",
+                title = "💅 Baddies Weapons ",
                 description = description,
                 color = 0xF1C40F,
                 timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ"),
